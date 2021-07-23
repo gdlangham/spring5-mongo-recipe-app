@@ -51,10 +51,11 @@
                                     <label>Categories:</label>
                                 </div>
                                 <div class="col-md-9 form-group">
-                                    <div class="radio">
+
+                                    <div class="radio" th:each="category : ${recipe.categories}">
                                         <label>
                                             <input type="checkbox" value=""/>
-                                            Cat 1
+                                            <span th:text="${category.getDescription()}"></span>
                                         </label>
                                     </div>
                                     <div class="radio" th:remove="all">
@@ -155,6 +156,15 @@
                                         ' - ' + ingredient.getDescription())}">1 Teaspoon of Sugar
                                         </li>
                                     </ul>
+                                    <div th:each="ingredientEach, idx : ${recipe.ingredients}">
+                                        <input type="hidden" th:field="*{ingredients[__${idx.index}__].id}"/>
+                                        <input type="hidden" th:field="*{ingredients[__${idx.index}__].description}"/>
+                                        <input type="hidden" th:field="*{ingredients[__${idx.index}__].amount}"/>
+                                        <input type="hidden" th:field="*{ingredients[__${idx.index}__].uom.id}"/>
+                                    </div>
+                                    <div th:each="catEach, idx : ${recipe.categories}">
+                                        <input type="hidden" th:field="*{categories[__${idx.index}__].id}"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
